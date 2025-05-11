@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import api from "../apiFacade.js";
 
 export default function LoginForm() {
   const usernameRef = useRef(null);
@@ -6,8 +7,7 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Username:", usernameRef.current.value);
-    console.log("Password:", passwordRef.current.value);
+    api.login(usernameRef.current.value, passwordRef.current.value);
   };
 
   return (
