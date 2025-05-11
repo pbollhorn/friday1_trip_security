@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import api from "../apiFacade.js";
 
-export default function LoginForm({ loggedIn, setLoggedIn }) {
+export default function LoginLogoutComponent({ loggedIn, setLoggedIn }) {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -10,7 +10,11 @@ export default function LoginForm({ loggedIn, setLoggedIn }) {
     api
       .login(usernameRef.current.value, passwordRef.current.value)
       .then(() => setLoggedIn(true))
-      .catch(() => alert("Invalid username or password"));
+      .catch(() => {
+        alert("Wrong username or password");
+        usernameRef.current.value = "";
+        passwordRef.current.value = "";
+      });
   };
 
   const handleLogoutSubmit = (e) => {

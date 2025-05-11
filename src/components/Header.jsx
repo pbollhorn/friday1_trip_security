@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LoginForm from "./LoginForm.jsx";
+import LoginLogoutComponent from "./LoginLogoutComponent.jsx";
 
 export default function Header({ loggedIn, setLoggedIn }) {
   return (
@@ -20,7 +20,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
           </nav>
         </div>
         <div>
-          <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+          <LoginLogoutComponent loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         </div>
       </div>
     </>
