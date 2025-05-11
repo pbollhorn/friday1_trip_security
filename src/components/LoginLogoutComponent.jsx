@@ -9,7 +9,10 @@ export default function LoginLogoutComponent({ loggedIn, setLoggedIn }) {
     e.preventDefault();
     api
       .login(usernameRef.current.value, passwordRef.current.value)
-      .then(() => setLoggedIn(true))
+      .then(() => {
+        localStorage.setItem("currentUsername", usernameRef.current.value);
+        setLoggedIn(true);
+      })
       .catch(() => {
         alert("Wrong username or password");
         usernameRef.current.value = "";
@@ -21,6 +24,7 @@ export default function LoginLogoutComponent({ loggedIn, setLoggedIn }) {
     e.preventDefault();
     api.logout();
     setLoggedIn(false);
+    localStorage.removeItem("currentUsername");
   };
 
   if (loggedIn === false) {
@@ -37,6 +41,9 @@ export default function LoginLogoutComponent({ loggedIn, setLoggedIn }) {
   if (loggedIn === true) {
     return (
       <form onSubmit={handleLogoutSubmit}>
+        <label>
+          Logged in as: {localStorage.getItem("currentUsername") + " "}
+        </label>
         <button type="submit">Logout</button>
       </form>
     );
