@@ -1,21 +1,25 @@
 import React, { useRef } from "react";
 import api from "../apiFacade.js";
 
-export default function LoginForm() {
+export default function LoginForm({ loggedIn, setLoggedIn }) {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    api.login(usernameRef.current.value, passwordRef.current.value);
+    api
+      .login(usernameRef.current.value, passwordRef.current.value)
+      .then(() => setLoggedIn(true))
+      .catch(() => alert("Invalid username or password"));
   };
 
   const handleLogoutSubmit = (e) => {
     e.preventDefault();
     api.logout();
+    setLoggedIn(false);
   };
 
-  if (api.loggedIn() === false) {
+  if (loggedIn === false) {
     return (
       <form onSubmit={handleLoginSubmit}>
         <label>Username: </label>
@@ -26,7 +30,7 @@ export default function LoginForm() {
       </form>
     );
   }
-  if (api.loggedIn() === true) {
+  if (loggedIn === true) {
     return (
       <form onSubmit={handleLogoutSubmit}>
         <button type="submit">Logout</button>
