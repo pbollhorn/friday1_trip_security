@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function Trips() {
-  // State to store the joke
+
   const [tripList, setTripList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -32,7 +32,6 @@ function Trips() {
     return tripList.filter((e) => e.category === category);
   }
 
-  // Render the joke
   return (
     <>
       <h2>Trips</h2>

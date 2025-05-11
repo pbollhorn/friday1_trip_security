@@ -5,7 +5,11 @@ export default function Header({ loggedIn, setLoggedIn }) {
   return (
     <>
       <div>
-        <h1>Trip App with Security</h1>
+        <h1>
+          <Link to="/" id="banner">
+            Trip App
+          </Link>
+        </h1>
       </div>
       <div id="navbar">
         <div>
