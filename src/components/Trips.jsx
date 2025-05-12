@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Trips() {
   const [tripList, setTripList] = useState([]);
@@ -60,7 +61,7 @@ function Trips() {
         <tbody>
           {filteredTripList(selectedCategory).map((e) => (
             <tr key={e.id}>
-              <td>{e.tripName}</td>
+              <td><Link to={""+e.id}>{e.tripName}</Link></td>
               <td>{e.category}</td>
               <td>{dateFormatter.format(e.startDate)}</td>
               <td>{dateFormatter.format(e.endDate)}</td>

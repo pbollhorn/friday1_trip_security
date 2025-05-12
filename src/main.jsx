@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import Home from "./components/Home.jsx";
 import Trips from "./components/Trips.jsx";
 import Guides from "./components/Guides.jsx";
+import TripDetails from "./components/TripDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/trips", element: <Trips /> },
       { path: "/guides", element: <Guides /> },
+      { path: "/trips/:id", element: <TripDetails /> },
     ],
   },
 ]);
