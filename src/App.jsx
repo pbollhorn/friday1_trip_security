@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      <Outlet />
+      <Outlet context={ loggedIn } />
     </div>
   );
 }

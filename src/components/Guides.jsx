@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import api from "../apiFacade.js";
 
 export default function Guides() {
   const [guideData, setGuideData] = useState([]);
+  const loggedIn = useOutletContext();
+  console.log(loggedIn);
 
   // useEffect
   useEffect(() => {
