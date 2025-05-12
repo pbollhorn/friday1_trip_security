@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 function Trips() {
-
   const [tripList, setTripList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -59,8 +58,8 @@ function Trips() {
           </tr>
         </thead>
         <tbody>
-          {filteredTripList(selectedCategory).map((e, index) => (
-            <tr key={index}>
+          {filteredTripList(selectedCategory).map((e) => (
+            <tr key={e.id}>
               <td>{e.tripName}</td>
               <td>{e.category}</td>
               <td>{dateFormatter.format(e.startDate)}</td>
@@ -78,10 +77,12 @@ function Trips() {
 async function fetchTripData() {
   const response = await fetch("https://tripapi.cphbusinessapps.dk/api/trips");
   const data = await response.json();
+  console.log(data);
 
   const tripData = data.map(
     (e) =>
       (e = {
+        id: e.id,
         tripName: e.name,
         category: e.category.toLowerCase(),
         startDate: new Date(e.starttime.substring(0, 10)),
@@ -91,9 +92,6 @@ async function fetchTripData() {
           (new Date(e.endtime) - new Date(e.starttime)) / 1000 / 60 / 60 / 24,
       })
   );
-
-  console.log(data);
-  console.log(tripData);
 
   return tripData;
 }
