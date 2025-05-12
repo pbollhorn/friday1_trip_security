@@ -5,18 +5,20 @@ import api from "../apiFacade.js";
 export default function Guides() {
   const [guideData, setGuideData] = useState([]);
   const loggedIn = useOutletContext();
-  console.log(loggedIn);
 
   // useEffect
   useEffect(() => {
-    if (api.loggedIn()) {
+    if (api.hasUserAccess("admin", loggedIn)) {
       const fun = async () => {
         setGuideData(await fetchGuideData());
       };
-
       fun();
     }
-  }, []); // Empty dependency array means this runs once on mount
+  }, [loggedIn]); // Runs on mount and when loggedIn changes
+
+  if (!api.hasUserAccess("admin", loggedIn)) {
+    return <h2>Log in as admin to see guides</h2>;
+  }
 
   return (
     <>
@@ -49,23 +51,7 @@ async function fetchGuideData() {
     api.makeOptions("GET", true)
   );
   const guideData = await response.json();
+  console.log(guideData);
 
   return guideData;
 }
-
-// Check for user access. Move to another file.
-const getUserRoles = () => {
-  const token = getToken();
-  if (token != null) {
-    const payloadBase64 = getToken().split(".")[1];
-    const decodedClaims = JSON.parse(window.atob(payloadBase64));
-    const roles = decodedClaims.roles;
-    return roles;
-  } else return "";
-};
-
-// Check for user access. Move to another file.
-const hasUserAccess = (neededRole, loggedIn) => {
-  const roles = getUserRoles().split(",");
-  return loggedIn && roles.includes(neededRole);
-};
