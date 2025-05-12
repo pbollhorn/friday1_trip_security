@@ -17,7 +17,7 @@ export default function TripDetails() {
       };
       fun();
     }
-  }, [loggedIn]); // Runs on mount and when loggedIn changes
+  }, [loggedIn, id]); // Runs on mount and when loggedIn changes (And React wants id to be added)
 
   if (!api.hasUserAccess("user", loggedIn)) {
     return (
